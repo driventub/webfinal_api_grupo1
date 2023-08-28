@@ -39,7 +39,7 @@ public class Noticia {
     private List<Imagen> listaImagenes;
 
     @OneToMany(mappedBy = "noticia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Imagen> listaVideo;
+    private List<Video> listaVideo;
 
     public Integer getId() {
         return id;
@@ -81,11 +81,11 @@ public class Noticia {
         this.listaImagenes = listaImagenes;
     }
 
-    public List<Imagen> getListaVideo() {
+    public List<Video> getListaVideo() {
         return listaVideo;
     }
 
-    public void setListaVideo(List<Imagen> listaVideo) {
+    public void setListaVideo(List<Video> listaVideo) {
         this.listaVideo = listaVideo;
     }
 
