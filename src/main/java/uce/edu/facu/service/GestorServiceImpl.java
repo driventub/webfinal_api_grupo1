@@ -20,21 +20,16 @@ public class GestorServiceImpl implements IGestorService {
     @Autowired
     private INoticiaRepo notiRepo;
 
-
     @Override
     @Transactional
     public void nuevaNoticia(NoticiaTO noticia) {
         Noticia n = new Noticia();
-        List<Imagen> lImagen  = new ArrayList<>();
+        List<Imagen> lImagen = new ArrayList<>();
         List<Video> lVideo = new ArrayList<>();
-        
-
-
 
         n.setTitulo(noticia.getTitulo());
         n.setDescripcion(noticia.getDescripcion());
         n.setFecha(LocalDateTime.now());
-        
 
         for (String img : noticia.getUrlImagen()) {
             Imagen nImagen = new Imagen();
@@ -53,13 +48,31 @@ public class GestorServiceImpl implements IGestorService {
         n.setListaVideo(lVideo);
 
         this.notiRepo.insertarNoticia(n);
-        
+
     }
 
     @Override
-    public List<Noticia> obtenerNoticias() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerNoticias'");
+    public List<NoticiaTO> obtenerNoticias() {
+        List<Noticia> noti = this.notiRepo.buscarTodos();
+        List<NoticiaTO> to = new ArrayList<>();
+
+        for (Noticia noticia : noti) {
+            List<String> lImg = new ArrayList<>();
+            List<String> lVid = new ArrayList<>();
+
+            for (Imagen img : noticia.getListaImagenes()) {
+                lImg.add(img.getUrl());
+            }
+
+            for (Video video : noticia.getListaVideo()) {
+                lVid.add(video.getUrl());
+            }
+
+            NoticiaTO noticiaTO = new NoticiaTO(noticia.getTitulo(), noticia.getDescripcion(), lImg, lVid);
+            to.add(noticiaTO);
+        }
+        return to;
+
     }
-    
+
 }

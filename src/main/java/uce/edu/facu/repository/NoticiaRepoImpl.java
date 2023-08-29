@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import uce.edu.facu.model.Noticia;
 
@@ -27,8 +28,11 @@ public class NoticiaRepoImpl implements INoticiaRepo{
 
     @Override
     public List<Noticia> buscarTodos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarTodos'");
+        TypedQuery<Noticia> myQuery = this.em
+				.createQuery("SELECT n FROM Noticia n  ", Noticia.class);
+
+		return myQuery.getResultList();
+        
     }
 
     
