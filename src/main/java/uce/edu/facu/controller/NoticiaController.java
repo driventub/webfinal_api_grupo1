@@ -1,5 +1,7 @@
 package uce.edu.facu.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,27 +11,54 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import uce.edu.facu.service.IGestorService;
+import uce.edu.facu.service.ImageService;
 import uce.edu.facu.service.to.NoticiaTO;
+import uce.edu.facu.service.to.NoticiaTOFachada;
 
 @RestController
 @RequestMapping(path = "/noticias")
 @CrossOrigin
 public class NoticiaController {
-    
+
     @Autowired
     IGestorService gestorService;
 
+    @Autowired
+    private ImageService imageService;
+
     @PostMapping
-    public void crearNoticia(@RequestBody NoticiaTO noticia){
-        this.gestorService.nuevaNoticia(noticia);
+    public void crearNoticia(@RequestBody NoticiaTOFachada noticiaDTO) {
+
+        
+
+        // Handle image files
+        List<String> imageUrls = new ArrayList<>();
+        for (MultipartFile imageFile : noticiaDTO.getImagen()) {
+            // Save the image file and get the URL
+            
+            String imageUrl;
+            try {
+                imageUrl = imageService.saveImage(imageFile);
+            } catch (IOException e) {
+                
+                e.printStackTrace();
+            }
+            imageUrls.add(imageUrl);
+        }
+
+
+        NoticiaTO noti = new NoticiaTO(noticiaDTO.getTitulo(),noticiaDTO.getDescripcion(),imageUrls,noticiaDTO.getUrlVideo());
+
+        this.gestorService.nuevaNoticia(noti);
+
     }
 
     @GetMapping
-    public List<NoticiaTO> obtenerNoticias(){
+    public List<NoticiaTO> obtenerNoticias() {
         return this.gestorService.obtenerNoticias();
     }
-
 
 }

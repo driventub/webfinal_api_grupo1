@@ -53,25 +53,26 @@ public class GestorServiceImpl implements IGestorService {
 
     @Override
     public List<NoticiaTO> obtenerNoticias() {
-        List<Noticia> noti = this.notiRepo.buscarTodos();
-        List<NoticiaTO> to = new ArrayList<>();
+        // List<Noticia> noti = this.notiRepo.buscarTodos();
+        // List<NoticiaTO> to = new ArrayList<>();
 
-        for (Noticia noticia : noti) {
-            List<String> lImg = new ArrayList<>();
-            List<String> lVid = new ArrayList<>();
+        // for (Noticia noticia : noti) {
+        //     List<String> lImg = new ArrayList<>();
+        //     List<String> lVid = new ArrayList<>();
 
-            for (Imagen img : noticia.getListaImagenes()) {
-                lImg.add(img.getUrl());
-            }
+        //     for (Imagen img : noticia.getListaImagenes()) {
+        //         lImg.add(img.getUrl());
+        //     }
 
-            for (Video video : noticia.getListaVideo()) {
-                lVid.add(video.getUrl());
-            }
+        //     for (Video video : noticia.getListaVideo()) {
+        //         lVid.add(video.getUrl());
+        //     }
 
-            NoticiaTO noticiaTO = new NoticiaTO(noticia.getTitulo(), noticia.getDescripcion(), lImg, lVid);
-            to.add(noticiaTO);
-        }
-        return to;
+        //     NoticiaTO noticiaTO = new NoticiaTO(noticia.getTitulo(), noticia.getDescripcion(), lImg, lVid);
+        //     to.add(noticiaTO);
+        // }
+        // return to;
+        return null;
 
     }
 
