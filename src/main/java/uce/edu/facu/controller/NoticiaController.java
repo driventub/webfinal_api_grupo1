@@ -32,27 +32,26 @@ public class NoticiaController {
     @PostMapping
     public void crearNoticia(@RequestBody NoticiaTOFachada noticiaDTO) {
 
-        
+        try {
 
-        // Handle image files
-        List<String> imageUrls = new ArrayList<>();
-        for (MultipartFile imageFile : noticiaDTO.getImagen()) {
-            // Save the image file and get the URL
-            
-            String imageUrl;
-            try {
-                imageUrl = imageService.saveImage(imageFile);
-            } catch (IOException e) {
-                
-                e.printStackTrace();
+            // Handle image files
+            List<String> imageUrls = new ArrayList<>();
+            for (MultipartFile imageFile : noticiaDTO.getImagen()) {
+                // Save the image file and get the URL
+
+                String imageUrl = imageService.saveImage(imageFile);
+
+                imageUrls.add(imageUrl);
+
             }
-            imageUrls.add(imageUrl);
+            NoticiaTO noti = new NoticiaTO(noticiaDTO.getTitulo(), noticiaDTO.getDescripcion(), imageUrls,
+                    noticiaDTO.getUrlVideo());
+
+            this.gestorService.nuevaNoticia(noti);
+        } catch (IOException e) {
+
+            e.printStackTrace();
         }
-
-
-        NoticiaTO noti = new NoticiaTO(noticiaDTO.getTitulo(),noticiaDTO.getDescripcion(),imageUrls,noticiaDTO.getUrlVideo());
-
-        this.gestorService.nuevaNoticia(noti);
 
     }
 
