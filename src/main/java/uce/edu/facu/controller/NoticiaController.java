@@ -3,12 +3,10 @@ package uce.edu.facu.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import uce.edu.facu.service.IGestorService;
 import uce.edu.facu.service.to.NoticiaTO;
@@ -26,9 +24,10 @@ public class NoticiaController {
         this.gestorService.nuevaNoticia(noticia);
     }
 
-    @GetMapping
-    public List<NoticiaTO> obtenerNoticias(){
-        return this.gestorService.obtenerNoticias();
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<NoticiaTO>>  obtenerNoticias(){
+        return ResponseEntity.ok(this.gestorService.obtenerNoticias()) ;
     }
 
 
