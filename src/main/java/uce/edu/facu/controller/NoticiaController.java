@@ -45,8 +45,8 @@ public class NoticiaController {
                 imageUrls.add(imageUrl);
 
             }
-            NoticiaTO noti = new NoticiaTO(noticiaDTO.getTitulo(), noticiaDTO.getDescripcion(), imageUrls,
-                    noticiaDTO.getUrlVideo());
+            NoticiaTO noti = new NoticiaTO(noticiaDTO.getTitulo(), noticiaDTO.getDescripcion(),
+                    noticiaDTO.getUrlVideo(), imageUrls);
 
             this.gestorService.nuevaNoticia(noti);
         } catch (IOException e) {
