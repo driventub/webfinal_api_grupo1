@@ -29,7 +29,7 @@ public class Noticia {
     @Column(name = "noti_titulo")
     private String titulo;
 
-    @Column(name = "noti_descripcion")
+    @Column(name = "noti_descripcion" , columnDefinition = "text")
     private String descripcion;
 
     @Column(name = "noti_fecha")
