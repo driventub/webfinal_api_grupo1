@@ -62,7 +62,9 @@ public class NoticiaController {
 
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<NoticiaTO>>  obtenerNoticias(){
+    public ResponseEntity<List<NoticiaTO>>  obtenerNoticiasA() throws IOException {
+        System.out.println("entro al metodo obtener");
+        //System.out.println(this.gestorService.obtenerNoticias());
         return ResponseEntity.ok(this.gestorService.obtenerNoticias()) ;
     }
 
