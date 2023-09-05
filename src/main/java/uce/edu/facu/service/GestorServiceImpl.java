@@ -31,18 +31,24 @@ public class GestorServiceImpl implements IGestorService {
         n.setDescripcion(noticia.getDescripcion());
         n.setFecha(LocalDateTime.now());
 
-        for (String img : noticia.getUrlImagen()) {
+        if (noticia.getUrlImagen() != null) {
+            for (String img : noticia.getUrlImagen()) {
             Imagen nImagen = new Imagen();
             nImagen.setUrl(img);
             nImagen.setNoticia(n);
             lImagen.add(nImagen);
         }
-        for (String vid : noticia.getUrlVideo()) {
+        }
+        
+
+        if (noticia.getUrlVideo() != null) {
+            for (String vid : noticia.getUrlVideo()) {
             Video nVideo = new Video();
             nVideo.setUrl(vid);
             nVideo.setNoticia(n);
             lVideo.add(nVideo);
         }
+        } 
 
         n.setListaImagenes(lImagen);
         n.setListaVideo(lVideo);
