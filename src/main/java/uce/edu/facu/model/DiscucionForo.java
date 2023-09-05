@@ -1,7 +1,6 @@
 package uce.edu.facu.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,7 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -37,9 +36,6 @@ public class DiscucionForo {
 	@Column(name = "discu_fecha")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime fecha;
-
-	@Column(name = "discu_estudiante")
-	private String estudiante;
 	
 	@ManyToOne
 	@JoinColumn(name="foro_id_discucion")
@@ -47,7 +43,16 @@ public class DiscucionForo {
 
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "discuForo",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private List<Suscriptor> suscriptores;
+	@OneToOne(mappedBy = "discuForo",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private Suscriptor suscriptor;
+
+
+	@Override
+	public String toString() {
+		return "DiscucionForo [id=" + id + ", mensaje=" + mensaje + ", fecha=" + fecha + ", suscriptor=" + suscriptor
+				+ "]";
+	}
+	
+	
 	
 }

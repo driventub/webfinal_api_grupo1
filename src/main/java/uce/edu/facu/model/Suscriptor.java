@@ -19,6 +19,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -62,10 +63,16 @@ public class Suscriptor {
     @ManyToMany(mappedBy = "suscriptores")
     private Set<Foro> foros = new HashSet<>();
 
-    @JsonIgnore
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="discForo_id_suscriptor")
     private DiscucionForo discuForo;
+
+	@Override
+	public String toString() {
+		return "Suscriptor [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", cedula=" + cedula
+				+ ", correo=" + correo + ", telefono=" + telefono + ", direccion=" + direccion + ", fechaSuscripcion="
+				+ fechaSuscripcion + ", estado=" + estado + "]";
+	}
 
   
 }

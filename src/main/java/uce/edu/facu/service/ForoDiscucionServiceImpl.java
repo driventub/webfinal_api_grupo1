@@ -1,5 +1,6 @@
 package uce.edu.facu.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import uce.edu.facu.model.DiscucionForo;
 import uce.edu.facu.model.Foro;
+import uce.edu.facu.model.Suscriptor;
 import uce.edu.facu.repository.IForoDiscucionRepo;
 import uce.edu.facu.service.to.ForoDiscucionTO;
 
@@ -19,19 +21,26 @@ public class ForoDiscucionServiceImpl implements IForoDiscucionService {
 
 	@Autowired
 	private IForoService foroService;
+	
+	@Autowired
+	private ISuscriptorService susService;
 
 	@Override
 	public DiscucionForo guardarDiscucion(ForoDiscucionTO discuForo) {
 		Foro foro = this.foroService.buscarPorID(discuForo.getIdForo());
+		Suscriptor sus = this.susService.buscarPorCedula(discuForo.getCedulaEstu());
 
 		DiscucionForo dF = new DiscucionForo();
-		dF.setEstudiante(discuForo.getCedulaEstu());
 		dF.setFecha(discuForo.getDiscuForo().getFecha());
 		dF.setForo(foro);
 		dF.setMensaje(discuForo.getDiscuForo().getMensaje());
-
-		discuForo.setDiscuForo(dF);
-
+        
+		sus.setDiscuForo(dF);
+		
+		dF.setSuscriptor(sus);
+		
+		//this.susService.actualizarSuscriptor(sus);
+	
 		return this.foroDiscuRepo.guardarDiscucion(dF);
 	}
 
