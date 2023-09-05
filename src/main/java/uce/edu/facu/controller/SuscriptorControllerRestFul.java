@@ -32,18 +32,18 @@ public class SuscriptorControllerRestFul {
         }
 
     }
-    
-    @GetMapping(path="/{cedula}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Suscriptor> obtenerPorCedula(@PathVariable(name="cedula")String cedula){
-    	return new ResponseEntity<>(this.suscriptorService.buscarPorCedula(cedula),null,HttpStatus.OK);
+
+    @GetMapping(path = "/{cedula}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Suscriptor> obtenerPorCedula(@PathVariable(name = "cedula") String cedula) {
+        return new ResponseEntity<>(this.suscriptorService.buscarPorCedula(cedula), null, HttpStatus.OK);
     }
-    
-    @GetMapping(path="/verify/{cedula}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> verificarSus(@PathVariable(name="cedula")String cedula){
-    	if(this.suscriptorService.verificarExistenciaSuscriptor(cedula)) {
-    		return new ResponseEntity<>(true,null,HttpStatus.OK);
-    	}else {
-    		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-    	}
+
+    @GetMapping(path = "/verify/{cedula}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> verificarSus(@PathVariable(name = "cedula") String cedula) {
+        if (this.suscriptorService.verificarExistenciaSuscriptor(cedula)) {
+            return new ResponseEntity<>(true, null, HttpStatus.OK);
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
     }
 }

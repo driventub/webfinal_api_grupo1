@@ -50,10 +50,10 @@ public class SuscriptorServiceImpl implements ISuscriptorService {
         return this.suscriptorRepo.consultaSuscriptores();
     }
 
-	@Override
-	public Boolean verificarExistenciaSuscriptor(String cedula) {
-		// TODO Auto-generated method stub
-		return this.suscriptorRepo.verificarExistenciaSuscriptor(cedula);
-	}
+    @Override
+    public Boolean verificarExistenciaSuscriptor(String cedula) {
+        // TODO Auto-generated method stub
+        return this.suscriptorRepo.verificarExistenciaSuscriptor(cedula);
+    }
 
 }
