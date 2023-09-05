@@ -10,6 +10,9 @@ public class NoticiaTO {
 
     
 
+    public NoticiaTO() {
+    }
+
     public NoticiaTO(String titulo, String descripcion, List<String> urlVideo, List<String> urlImagen) {
         this.titulo = titulo;
         this.descripcion = descripcion;

@@ -41,17 +41,29 @@ public class NoticiaController {
 
             // Handle image files
             List<String> imageUrls = new ArrayList<>();
-            for (MultipartFile imageFile : noticiaDTO.getImagen()) {
-                // Save the image file and get the URL
+            NoticiaTO noti = new NoticiaTO();
 
-                String imageUrl = imageService.saveImage(imageFile);
+            if (noticiaDTO.getImagen() != null) {
 
-                imageUrls.add(imageUrl);
+                for (MultipartFile imageFile : noticiaDTO.getImagen()) {
+                    // Save the image file and get the URL
+
+                    String imageUrl = imageService.saveImage(imageFile);
+
+                    imageUrls.add(imageUrl);
+
+                }
+
+                noti.setUrlImagen(imageUrls);
 
             }
-            NoticiaTO noti = new NoticiaTO(noticiaDTO.getTitulo(), noticiaDTO.getDescripcion(),
-                    noticiaDTO.getUrlVideo(), imageUrls);
-
+            // else {
+            // noti.setUrlImagen();
+            // noti.setUrlVideo();
+            // }
+            noti.setTitulo(noticiaDTO.getTitulo());
+            noti.setDescripcion(noticiaDTO.getDescripcion());
+            noti.setUrlVideo(noticiaDTO.getUrlVideo());
             this.gestorService.nuevaNoticia(noti);
         } catch (IOException e) {
 
@@ -60,9 +72,10 @@ public class NoticiaController {
 
     }
 
-
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<NoticiaTO>>  obtenerNoticias(){
+    public ResponseEntity<List<NoticiaTO>>  obtenerNoticiasA() throws IOException {
+        System.out.println("entro al metodo obtener");
+        //System.out.println(this.gestorService.obtenerNoticias());
         return ResponseEntity.ok(this.gestorService.obtenerNoticias()) ;
     }
 
