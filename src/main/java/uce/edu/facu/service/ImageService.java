@@ -14,7 +14,7 @@ public class ImageService {
     public String saveImage(MultipartFile file) throws IOException {
         byte[] bytes = file.getBytes();
         String fileName = file.getOriginalFilename();
-        Path path = Paths.get("src/main/resources/imgs/" + fileName);
+        Path path = Paths.get("src/main/resources/static/imgs/" + fileName);
         Files.write(path, bytes);
         return fileName; 
     }

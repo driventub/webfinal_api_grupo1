@@ -78,8 +78,8 @@ public class GestorServiceImpl implements IGestorService {
              for (Imagen img : noticia.getListaImagenes()) {
                  String imagenFileName = img.getUrl();
                  System.out.println(imagenFileName);
-                 String src = getResourceUrl("imgs/" + imagenFileName);
-                 System.out.println(src);
+                 String src = "/imgs/" + imagenFileName;
+                //  System.out.println(src);
                  lImg.add(src);
              }
 
