@@ -18,4 +18,6 @@ public interface ISuscriptorRepository {
 
     public List<Suscriptor> consultaSuscriptores();
 
+    
+    Boolean verificarExistenciaSuscriptor(String cedula);
 }

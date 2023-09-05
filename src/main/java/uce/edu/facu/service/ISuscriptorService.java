@@ -17,5 +17,7 @@ public interface ISuscriptorService {
     public Suscriptor consultaSuscripcionEstado(String estado);
 
     public List<Suscriptor> consultaSuscriptores();
+    
+    public Boolean verificarExistenciaSuscriptor(String cedula);
 
 }

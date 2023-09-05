@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import uce.edu.facu.model.Suscriptor;
 
+@Slf4j
 @Repository
 @Transactional
 public class SuscriptorRepositoryImpl implements ISuscriptorRepository {
@@ -58,5 +61,19 @@ public class SuscriptorRepositoryImpl implements ISuscriptorRepository {
                 .createQuery("SELECT s FROM Suscriptor s", Suscriptor.class);
         return myQuery.getResultList();
     }
+
+	@Override
+	public Boolean verificarExistenciaSuscriptor(String cedula) {
+		boolean flag =false;
+		try {
+			TypedQuery<Suscriptor> myQ = this.entityManager.createQuery("SELECT s from Suscriptor s where s.cedula=:cedula",Suscriptor.class);
+			Suscriptor sus = myQ.setParameter("cedula", cedula).getSingleResult();
+			System.out.println("sus: "+sus.getNombre());
+			flag = true;
+		}catch(NoResultException e) {
+			log.error(e.getMessage());
+		}
+		return flag;
+	}
 
 }
